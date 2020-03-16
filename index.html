@@ -9,24 +9,16 @@
 <body>
   <h1>kf:guessTheMob</h1>
   <h2 id="question"></h2>
-  <button onclick="getResult(1); nextQuestion(); drawCharacter()">Yes</button>
-  <button onclick="getResult(0); nextQuestion(); drawCharacter()">No</button>
-  <h6 id="possibilities"></h6>
+  <button onclick="buttonOnClickYes();">Yes</button>
+  <button onclick="buttonOnClickNo();">No</button>
+  <h5 id="possibilities"></h5>
 
   
   <img id="portrait" width=300 height=350>
-  <h5>Note that Endermen are counted as non-Nether/non-Overworld mobs, even though they spawn there; 
-    Villagers, Iron Golems and any other mobs with the villager nose are counted to the Illager family; 
-    Any mob that can attack you without body contact with arrows, fireballs, split, etc is counted as a Ranged attack mob; 
-    Mobs with Inventory are those that can have one(even if only after a user interaction, e.g. chesting a Donkey); 
-    Boss mobs are those near to which a player can see the purple Boss Bar on the top of the screen, Raid mobs excluded; Wither is a Nether mob;
-    If the game is showing more or less entites then one as an answer, it means you asnwered one of the questions wrong. Report the case never the less; It is possible to skip a question by pressing "next", but that might(and most likely WILL) cause errors;   
-  </h5>
 
-  
   <hr>
-  <button onclick="nextQuestion()">Next</button>
-  <button onclick="location.reload();">Quit and Restart</button>
+  <button onclick="nextQuestion(); drawCharacter()">Next</button>
+  <button onclick="playAgain()">Quit and Restart</button>
 </hr>
 
 <hr>
@@ -38,23 +30,79 @@
 <button onclick="chooseCharacter('Jaiden')">Jaiden</button>
 </hr>
 
+<hr>
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+</hr>
+<hr>
+<h4>
+  Note that <em>Endermen</em> and <em>Endermites</em> are counted as End mobs only, even though they spawn everywhere; 
+  <em>Villagers, Iron Golems, Witches, Ravagers</em> and any other mobs with the villager nose are counted to the Illager family; 
+</h4>
+<h4>
+  Any mob that can attack you without body contact with arrows, fireballs, split, potions, etc is counted as a Ranged attack mob; 
+  <em>Mobs with Inventory are those that can have one(even if only after a user interaction, e.g. chesting a Donkey); Wolfs</em> aren't considered DYABLE(Q19) even though one can dye their collar; <em>Pufferfish</em> aren't dyable.
+</h4>
+<h4>Boss mobs are those near to which a player can see the purple Boss Bar on the top of the screen, Raid mobs excluded; <em>The Wither</em> is a Nether mob;
+</h4>
+<h4> 
+  A <i>Peaceful</i> mob is a mob that cannot attack; A <i>Hostile</i> one is a mob that attacks without provocation; A <i>Neutral</i> is a mob that attacks only after being provocated;
+</h4>
+<h4>
+  If the game is showing more or less entites then one as an answer, it means you asnwered one of the questions wrong. Report the case never the less; It is possible to skip a question by pressing "next", but that might(and most likely WILL) cause errors; 
+</h4>
+</hr>
+
+
+
+
+
 <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
 <script> 
 
+  function buttonOnClickNo () {
+    if (page === 0) {
+     alert("Please press \"Yes\" to start") 
+   } else {
+    getResult(0);
+    drawCharacter();
+    nextQuestion();
+  }
+};
+
+function buttonOnClickYes () {
+  getResult(1);
+  drawCharacter();
+  nextQuestion();
+};
+
+function playAgain () {
+  var conf = confirm("Do you want to reload the page and play again? ^~^");
+  if (conf == true) {
+    location.reload();
+  } else {
+    playAgain();
+  };
+}
 
 
- var Arthur = new Array("arthur/img0.png", "arthur/img1.png", "arthur/img2.png", "arthur/img3.png", "arthur/img4.png");
- var Jaune = new Array("jaune/img0.png", "jaune/img1.png", "jaune/img2.png", "jaune/img3.png", "jaune/img4.png");
- var Dandelion = new Array("dandelion/img0.png", "dandelion/img1.png", "dandelion/img2.png", "dandelion/img3.png", "dandelion/img4.png");
- var Felix = new Array("felix/img0.png", "felix/img1.png", "felix/img2.png", "felix/img3.png", "felix/img4.png");
- var Azure = new Array("azure/img0.png", "azure/img1.png", "azure/img2.png", "azure/img3.png", "azure/img4.png");
- var Jaiden = new Array("jaiden/img0.png", "jaiden/img1.png", "jaiden/img2.png", "jaiden/img3.png", "jaiden/img4.png");
 
- var characters = [Arthur, Jaune, Dandelion, Felix, Azure, Jaiden];
+var Arthur = new Array("arthur/img0.png", "arthur/img1.png", "arthur/img2.png", "arthur/img3.png", "arthur/img4.png", "arthur/yes.png", "arthur/no.png");
+var Jaune = new Array("jaune/img0.png", "jaune/img1.png", "jaune/img2.png", "jaune/img3.png", "jaune/img4.png", "jaune/yes.png", "jaune/no.png");
+var Dandelion = new Array("dandelion/img0.png", "dandelion/img1.png", "dandelion/img2.png", "dandelion/img3.png", "dandelion/img4.png", "dandelion/yes.png", "dandelion/no.png");
+var Felix = new Array("felix/img0.png", "felix/img1.png", "felix/img2.png", "felix/img3.png", "felix/img4.png", "felix/yes.png", "felix/no.png");
+var Azure = new Array("azure/img0.png", "azure/img1.png", "azure/img2.png", "azure/img3.png", "azure/img4.png", "azure/yes.png", "azure/no.png");
+var Jaiden = new Array("jaiden/img0.png", "jaiden/img1.png", "jaiden/img2.png", "jaiden/img3.png", "jaiden/img4.png", "jaiden/yes.png", "jaiden/no.png");
 
 
- var currentCharacter;
- var chooseCharacter = function (name) {
+var characters = [Arthur, Jaune, Dandelion, Felix, Azure, Jaiden];
+
+
+var currentCharacter;
+var chooseCharacter = function (name) {
   if (name == "Arthur") {
     currentCharacter = characters[0];
     console.log(currentCharacter[0] + " chosen")
@@ -82,13 +130,28 @@
 window.onload = chooseCharacter()
 
 
+
 function drawCharacter () {
-  var randomImage = Math.floor(Math.random() * 5);
-  document.getElementById("portrait").src = currentCharacter[randomImage];
+  if (page != 19) {
+    var randomImage = Math.floor(Math.random() * 5);
+    document.getElementById("portrait").src = currentCharacter[randomImage];
+  } else {
+    return
+  }
 };
 
 
-//document.body.appendChild(myImage);
+function drawCharacterYes () {
+  document.getElementById("portrait").src = currentCharacter[5];
+  $("#possibilities").text("Yasss! Amazing ^~^");
+};
+
+function drawCharacterNo () {
+  document.getElementById("portrait").src = currentCharacter[6];
+  $("#possibilities").text("Oh.. Sorry.. I'll try to improve myself unless it was YOU who answered my questions wrong.");
+};
+
+
 
 
 var page = 0;
@@ -96,7 +159,7 @@ document.getElementById("portrait").src = "pack_icon.png"
 
 var getQuestionText = function () {
   if (page == 0) {
-    return "0) Are you ready to start?(Only click 'yes')"
+    return "0) Are you ready to start?"
   } else if (page == 1) {
     return "1) Is this mob from the Overworld?"
   } else if (page == 2) {
@@ -125,17 +188,25 @@ var getQuestionText = function () {
     return "13) Is this mob an illager?"
   } else if (page == 14) {
     return "14) Does this mob use ranged attack?"
+  } else if (page == 15) {
+    return "15) Does this mob live in water?"
+  } else if (page == 16) {
+    return "16) Does this mob move in air?"
+  } else if (page == 17) {
+    return "17) Does this mob apply a negative effect to it's target?"
+  } else if (page == 18) {
+    return "18) Does this mob have skin variations? Is it dyable?"
   } else {
     var arrayOfPos = Object.keys(entities);
-    if (arrayOfPos.length < 1) {
+    if (arrayOfPos.length < 1 && page == 19) {
       var confirmation = confirm("There was an error during the process. Based on your answers, no entities could fit. Press \"OK\" to reload the page and play again.");
       if (confirmation == true) {
         location.reload();
       } else {
         return "ERROR";
       };
-    } else if (arrayOfPos.length > 1) {
-      alert("There was an error during the process. Based on your answers, multiple entities can fit: [" + arrayOfPos.join(", ") +"]. Please reload the page to play again.");
+    } else if (arrayOfPos.length > 1 && page == 19) {
+      //alert("Based on your answers, multiple entities can fit: [" + arrayOfPos.join(", ") +"]. Please reload the page to play again.");
       return "The mob you thought of is...    " + "..." +  arrayOfPos.join(" or ");
     } else {
       return "The mob you thought of is...    " + "..." +  arrayOfPos[0]
@@ -145,9 +216,9 @@ var getQuestionText = function () {
 
 
 
-
 var questionText = getQuestionText();
 $("#question").text(questionText);
+
 
 
 function removeWith(tag) {
@@ -171,18 +242,19 @@ function removeWith(tag) {
   };
 };
 
-
 function removeWithout(tag) {
+
   var e
+
   for (e in entities) {
-
     var includes = entities[e].includes(tag);
-
     if (includes == false) {
       console.log("deleting " + e);
       delete entities[e];
     };
   }; 
+
+
 
   var currentPossibilities = ""
   var b
@@ -193,7 +265,7 @@ function removeWithout(tag) {
 };
 
 
-    //List of entity Tags: [Overworld, Nether, Hostile, Peaceful, Feeable, Tamable, Breedable, Rideable, Milkable, Shearable, Invenotry, Boss, Illager, Ranged]
+    //List of entity Tags: [Overworld, Nether, End, Hostile, Peaceful, Neutral, Water, Feedable, Tameable, Breedable, Rideable, Milkable, Shearable, Invenotry, Boss, Illager, Ranged, Air, Effect, Variants]
 
 
     //includes all entites with their "tags"[values] as signed
@@ -202,13 +274,75 @@ function removeWithout(tag) {
       "ghost": ["hostile", "badlands", "overworld"],
       "yaklin": ["neutral", "nether"],
       "mech": ["swamp", "overworld", "hostile"]  */
-      "zombie": ["Overworld", "Hostile"],
-      "wither": ["Boss", "Hostile", "Nether", "Ranged"],
-      "sheep": ["Shearable", "Breedable", "Feedable", "Peaceful", "Overworld"],
-      "skeleton": ["Hostile", "Overworld", "Ranged"],
-      "pillager": ["Hostile", "Overworld", "Ranged", "Illager"],
-      "llama": ["Neutral", "Overworld", "Ranged", "Feedable", "Breedable", "Rideable", "Tameable", "Inventory" ]
+      "bat": ["Overworld", "Peaceful", "Air"],
+      "bee": ["Overworld", "Neutral", "Feedable", "Breedable", "Air", "Effect"],
+      "blaze": ["Nether", "Hostile", "Ranged", "Air"],
+      "cat": ["Overworld", "Peaceful", "Feedable", "Breedable", "Tameable", "Variants"],
+      "cave_spider": ["Overworld", "Hostile", "Effect"],
+      "cow": ["Overworld", "Peaceful", "Feedable", "Breedable", "Milkable"],
+      "creeper": ["Overworld", "Hostile"],
+      "dolphin": ["Overworld", "Neutral", "Feedable", "Breedable", "Water"],
+      "donkey": ["Overworld, Peaceful", "Rideable", "Tameable", "Feedable", "Breedable", "Inventory"],
+      "drowned": ["Overworld", "Hostile", "Ranged", "Water"],
+      "elder_guardian": ["Overworld", "Hostile", "Ranged", "Water", "Effect"],
+      "ender_dragon": ["End", "Hostile", "Ranged", "Boss", "Air"],
+      "enderman": ["End", "Neutral"],
+      "endermite": ["End", "Hostile"],
+      "evoker": ["Overworld", "Hostile", "Ranged", "Illager"],
+      "cod": ["Overworld", "Peaceful", "Water"],
+      "fox": ["Overworld", "Peaceful", "Feedable", "Breedable", "Variants"],
+      "ghast": ["Nether", "Hostile", "Ranged", "Air"],
+      "guardian": [ "Overworld, Hostile, Water, Ranged"],
+      "horse": ["Overworld", "Peaceful", "Rideable", "Inventory", "Breedable", "Feedable", "Tameable", "Variants"],
+      "husk": ["Overworld", "Hostile", "Effect"],
+      "iron_golem": ["Overworld", "Neutral", "Illager"], //?
+      "llama": ["Neutral", "Overworld", "Ranged", "Feedable", "Breedable", "Rideable", "Tameable", "Inventory", "Variants" ],
+      "magma_cube": ["Nether", "Hostile"],
+      "mooshroom": ["Overworld", "Peaceful", "Milkable", "Breedable", "Feedable", "Shearable"],
+      "mule": ["Overworld", "Tameable", "Rideable", "Inventory", "Feedable", "Breedable"],
+      "ocelot": ["Overworld", "Peaceful", "Feedable", "Breedable"],
+      "panda": ["Overworld", "Neutral", "Feedable", "Breedable"],
+      "parrot": ["Overworld", "Peaceful", "Feedable", "Breedable", "Tameable", "Air", "Variants"],
+      "phantom": ["Overworld", "Hostile", "Air"],
+      "pig": ["Overworld", "Peaceful", "Breedable", "Feedable", "Rideable"],
+      "pillager": ["Overworld", "Hostile", "Ranged", "Illager"],
+      "pollar_bear": ["Overworld", "Neutral"],
+      "pufferfish": ["Water", "Overworld", "Hostile", "Effect"],
+      "rabbit": ["Overworld", "Peaceful", "Feedable", "Breedable", "Variants"],
+      "ravager": ["Overworld", "Hostile", "Illager"],
+      "salmon": [ "Water", "Overworld", "Peaceful"],
+      "sheep": ["Overworld", "Peaceful", "Shearable", "Breedable", "Feedable", "Variants"],
+      "shulker": ["End", "Hostile", "Ranged", "Effect", "Variants"], //?
+      "silverfish": ["Overworld", "Hostile"],
+      "skeleton_horse": ["Overworld", "Peaceful", "Rideable"],
+      "skeleton": ["Overworld", "Hostile", "Ranged"],
+      "slime": ["Overworld", "Hostile"],
+      "snow_golem": ["Overworld", "Neutral"], //?
+      "spider": ["Overworld", "Hostile"],
+      "squid": [ "Water", "Overworld", "Peaceful"],
+      "stray": ["Overworld", "Hostile", "Ranged", "Effect"],
+      "tropicalfish": [ "Water", "Overworld", "Peaceful", "Variants"],
+      "turtle": [ "Water", "Overworld", "Peaceful", "Feedable", "Breedable"],
+      "vex": ["Overworld", "Hostile", "Air"], //?
+      "villager": ["Overworld", "Illager", "Peaceful", "Variants"],
+      "vindicator": ["Overworld", "Hostile", "Illager"],
+      "wandering_trader": ["Overworld", "Peaceful", "Illager"],
+      "witch": ["Overworld", "Hostile", "Illager", "Ranged", "Effect"],
+      "wither_skeleton": ["Nether", "Hostile", "Effect"],
+      "wither": ["Nether", "Hostile","Boss",  "Ranged", "Effect", "Air"],
+      "wolf": ["Overworld", "Feedable", "Tameable", "Breedable"],
+      "zombie_horse": ["Overworld", "Peaceful", "Rideable"],
+      "zombie_pigman": ["Nether", "Neutral"],
+      "zombie_villager": ["Overworld", "Illager", "Hostile", "Variants"],
+      "zombie": ["Overworld", "Hostile"]
     };
+    //ghast-nlaze
+    //cave-spider-husk 
+    //creeper, silverfish, slime, spider, zombie,
+    // ravager, vindicator, zombie_villager,
+    //villager, wandering_trader,
+    //cod, salmon, squid, tropicalfish,
+    //fox, ocelot, rabbit,
 
     var currentPossibilities = ""
     var b
@@ -217,146 +351,219 @@ function removeWithout(tag) {
       $("#possibilities").text("Mobs left: " + currentPossibilities);
     };
 
-    
-
-    /*function yessed() {
-      currentAnswer = 1;
-    };
-    function noed() {
-      currentAnswer = 0;
-    };
-    function resetted() {
-      currentAnswer = undefined;
-    };*/
 
 
-    function nextQuestion() {
-      page++;
-      currentAnswer = undefined
+
+    function nextQuestion(vr) {
+      if (vr === undefined) {
+        vr = 1
+      };
+      page += vr
       var questionText = getQuestionText();
       $("#question").text(questionText);
+
+      /*if (answer == 1 && page == 3) {
+        page = 10;
+
+      };*/
+
     };
 
 
 
     var getResult = function (answer) {
       if (answer == 0 && page == 0) {
-        console.log("0:Started")
+        console.log("0:Null")
       } else if (answer == 1 && page == 0) {
         console.log("0:Started");
+
+
       };
       if (answer == 0 && page == 1) {
         console.log("1:Overworld:No");
-        removeWith("Overworld")
+        removeWith("Overworld");
+
       } else if (answer == 1 && page == 1) {
         console.log("1:Overworld:Yes");
-        removeWithout("Overworld")
+        removeWithout("Overworld");
+        
+
+
       };
       if (answer == 0 && page == 2) {
         console.log("2:Nether:No");
-        removeWith("Nether")
+        removeWith("Nether");
+
+
+
       } else if (answer == 1 && page == 2) {
         console.log("2:Nether:Yes");
-        removeWithout("Nether")
+        removeWithout("Nether");
+
+
+
       };
       if (answer == 0 && page == 3) {
         console.log("3:Hostile:No");
-        removeWith("Hostile")
+        removeWith("Hostile");
+
       } else if (answer == 1 && page == 3) {
         console.log("3:Hostile:Yes");
-        removeWithout("Hostile")
+        removeWithout("Hostile");
+
       };
       if (answer == 0 && page == 4) {
         console.log("4:Peaceful:No");
-        removeWith("Peaceful")
+        removeWith("Peaceful");
+
       } else if (answer == 1 && page == 4) {
         console.log("4:Peaceful:Yes");
-        removeWithout("Peaceful")
+        removeWithout("Peaceful");
+
       };
       if (answer == 0 && page == 5) {
         console.log("5:Feedable:No");
-        removeWith("Feedable")
+        removeWith("Feedable");
+
       } else if (answer == 1 && page == 5) {
         console.log("5:Feedable:Yes");
-        removeWithout("Feedable")
+        removeWithout("Feedable");
+
       };
       if (answer == 0 && page == 6) {
         console.log("6:Tameable:No");
-        removeWith("Tameable")
+        removeWith("Tameable");
+
       } else if (answer == 1 && page == 6) {
         console.log("6:Tameable:Yes");
-        removeWithout("Tameable")
+        removeWithout("Tameable");
+
       };
       if (answer == 0 && page == 7) {
         console.log("7:Breedable:No");
-        removeWith("Breedable")
+        removeWith("Breedable");
+
       } else if (answer == 1 && page == 7) {
         console.log("7:Breedable:Yes");
-        removeWithout("Breedable")
+        removeWithout("Breedable");
+
       };
       if (answer == 0 && page == 8) {
         console.log("8:Rideable:No");
-        removeWith("Rideable")
+        removeWith("Rideable");
+
       } else if (answer == 1 && page == 8) {
         console.log("8:Rideable:Yes");
-        removeWithout("Rideable")
+        removeWithout("Rideable");
+
       };
       if (answer == 0 && page == 9) {
         console.log("9:Milkable:No");
-        removeWith("Milkable")
+        removeWith("Milkable");
+
       } else if (answer == 1 && page == 9) {
         console.log("9:Milkable:Yes");
-        removeWithout("Milkable")
+        removeWithout("Milkable");
+
       };
       if (answer == 0 && page == 10) {
         console.log("10:Shearable:No");
-        removeWith("Shearable")
+        removeWith("Shearable");
+
       } else if (answer == 1 && page == 10) {
         console.log("10:Shearable:Yes");
-        removeWithout("Shearable")
+        removeWithout("Shearable");
+
       };
       if (answer == 0 && page == 11) {
         console.log("11:Inventory:No")
-        removeWith("Inventory")
+        removeWith("Inventory");
+
       } else if (answer == 1 && page == 11) {
         console.log("11:Inventory:Yes");
-        removeWithout("Inventory")
+        removeWithout("Inventory");
+
       };
       if (answer == 0 && page == 12) {
         console.log("12:Boss:No");
-        removeWith("Boss")
+        removeWith("Boss");
+
       } else if (answer == 1 && page == 12) {
         console.log("12:Boss:Yes");
-        removeWithout("Boss")
+        removeWithout("Boss");
+
       };
       if (answer == 0 && page == 13) {
         console.log("13:Illager:No")
-        removeWith("Illager")
+        removeWith("Illager");
+
       } else if (answer == 1 && page == 13) {
         console.log("13:Illager:Yes");
-        removeWithout("Illager")
+        removeWithout("Illager");
+
       };
       if (answer == 0 && page == 14) {
         console.log("14:Ranged:No");
-        removeWith("Ranged")
+        removeWith("Ranged");
+
       } else if (answer == 1 && page == 14) {
         console.log("14:Ranged:Yes");
-        removeWithout("Ranged")
+        removeWithout("Ranged");
+
       };
+      if (answer == 0 && page == 15) {
+        console.log("15:Water:No");
+        removeWith("Water");
+
+      } else if (answer == 1 && page == 15) {
+        console.log("15:Water:Yes");
+        removeWithout("Water");
+
+      };
+      if (answer == 0 && page == 16) {
+        console.log("16:Air:No");
+        removeWith("Air");
+
+      } else if (answer == 1 && page == 16) {
+        console.log("16:Air:Yes");
+        removeWithout("Air");
+
+      };
+      if (answer == 0 && page == 17) {
+        console.log("17:Effect:No");
+        removeWith("Effect");
+
+      } else if (answer == 1 && page == 17) {
+        console.log("17:Effect:Yes");
+        removeWithout("Effect");
+
+      };
+      if (answer == 0 && page == 18) {
+        console.log("18:Variants:No");
+        removeWith("Variants");
+
+      } else if (answer == 1 && page == 18) {
+        console.log("18:Variants:Yes");
+        removeWithout("Variants");
+
+      };
+      if (answer == 1 && page == 19) {
+        console.log("19:Guessed:Yes");
+        drawCharacterYes();
+      } else if (answer == 0 && page == 19) {
+        console.log("19:Guessed:No");
+        drawCharacterNo();
+      };
+      if (page > 19) {
+        playAgain();
+        console.log("reloadAsked");
+      }
     };
 
 
+//window.location.href = "http://www.w3schools.com";
 
-
-
-
-
-
-
-
-
-
-  </script>
+</script>
 </body>
 
 </html>  
